@@ -1,6 +1,6 @@
 Flask ID Generator API
 
-This project is a Flask web application designed to generate different types of identifiers (IDs). It offers a simple API for generating UUIDs, random numeric IDs, random alphanumeric strings, and hexadecimal strings. Additionally, it includes encryption and decryption functionalities. It's useful for learning Flask basics and as a tool for generating unique identifiers and securely handling data encryption for various purposes.
+This project is a Flask web application designed to generate different types of identifiers (IDs). It offers a simple API for generating UUIDs, random numeric IDs, random alphanumeric strings, and hexadecimal strings. Additionally, it includes encryption and decryption functionalities, both for strings and larger files like audio recordings. It's useful for learning Flask basics and as a tool for generating unique identifiers and securely handling data encryption for various purposes.
 
 Features:
 
@@ -13,6 +13,8 @@ Features:
 -Generate random hexadecimal strings.
 
 -Encrypt and decrypt strings securely.
+
+-Encrypt and decrypt files securely.
 
 Installation:
 
@@ -69,7 +71,7 @@ Body: JSON object with a data field containing the encrypted string.
 Example Request: Decrypt a string:
 Use a tool like curl or Postman to POST a JSON object {"data": "encrypted_string_here"} to http://localhost:5000/decrypt.
 
-Local Testing:
+Local Testing for data encryption:
 
 Testing Encryption:
 To encrypt the string "Hello, Dream Keeper!", use the following curl command:
@@ -85,6 +87,32 @@ To decrypt an encrypted string, use the curl command with the encrypted data:
 curl -X POST http://127.0.0.1:5000/decrypt -H "Content-Type: application/json" -d "{\"data\":\"encrypted_string_here\"}"
 Replace encrypted_string_here with the actual encrypted string you received. The response should give you back the original string.
 
+
+Encrypt File:
+
+Endpoint: /encrypt-file
+Method: POST
+Form Data:
+file: The file to be encrypted.
+
+Usage: Use a tool like curl or Postman to POST the file to http://localhost:5000/encrypt-file. The response will be the encrypted file.
+
+Decrypt File:
+Endpoint: /decrypt-file
+Method: POST
+Form Data:
+file: The encrypted file to be decrypted.
+
+Usage: Use a tool like curl or Postman to POST the encrypted file to http://localhost:5000/decrypt-file. The response will be the decrypted file.
+
+Secure Key and IV Management in Real-World Scenarios:
+For production environments, it's essential to securely manage the encryption keys and IVs used for file encryption and decryption. This involves:
+
+Storing Keys and IVs: Store the encryption keys and IVs in a secure database or a managed service like AWS KMS or Azure Key Vault. Each key and IV should be associated with a unique identifier for the file or user.
+
+Retrieving Keys for Decryption: When decrypting a file, retrieve the corresponding key and IV from the secure storage using the file's unique identifier.
+
+Ensuring Security: Implement robust security measures to protect the key storage, including access controls, encryption in transit, and regular security audits.
 
 
 Contributing
