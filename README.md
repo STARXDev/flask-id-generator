@@ -18,8 +18,6 @@ To set up the project locally, follow these steps:
 
 -Clone the Repository
 
-bash
-
 git clone https://github.com/your-username/flask-id-generator.git
 Navigate to the Project Directory
 
