@@ -1,6 +1,6 @@
 Flask ID Generator API
 
-This project is a Flask web application designed to generate different types of identifiers (IDs). It offers a simple API for generating UUIDs, random numeric IDs, random alphanumeric strings, and hexadecimal strings. Additionally, it includes encryption and decryption functionalities, both for strings and larger files like audio recordings. It's useful for learning Flask basics and as a tool for generating unique identifiers and securely handling data encryption for various purposes.
+This project is a Flask web application designed to generate different types of identifiers (IDs). It offers a simple API for generating UUIDs, random numeric IDs, random alphanumeric strings, and hexadecimal strings. Additionally, it includes hybrid encryption capabilities, combining RSA for secure key exchange and AES for efficient data encryption, both for strings and larger files like audio recordings. It's a tool for generating unique identifiers and securely handling data encryption for various purposes.
 
 Features:
 
@@ -11,6 +11,8 @@ Features:
 -Generate random alphanumeric strings.
 
 -Generate random hexadecimal strings.
+
+-Hybrid encryption for strings and files using RSA and AES.
 
 -Encrypt and decrypt strings securely.
 
@@ -23,6 +25,7 @@ To set up the project locally, follow these steps:
 -Clone the Repository
 
 git clone https://github.com/your-username/flask-id-generator.git
+
 Navigate to the Project Directory
 
 cd flask-id-generator
@@ -71,22 +74,27 @@ Body: JSON object with a data field containing the encrypted string.
 Example Request: Decrypt a string:
 Use a tool like curl or Postman to POST a JSON object {"data": "encrypted_string_here"} to http://localhost:5000/decrypt.
 
-Local Testing for data encryption:
+Local Testing
 
-Testing Encryption:
-To encrypt the string "Hello, Dream Keeper!", use the following curl command:
+Testing Data Encryption
 
+Encryption:
+To encrypt the string "Hello, Dream Keeper!":
 
 curl -X POST http://127.0.0.1:5000/encrypt -H "Content-Type: application/json" -d "{\"data\":\"Hello, Dream Keeper!\"}"
 
-You'll receive a response with the encrypted version of this string, which will look like a random string of characters.
+This will return a response with three parts: encrypted_data, encrypted_aes_key, and encrypted_iv.
 
-Testing Decryption:
-To decrypt an encrypted string, use the curl command with the encrypted data:
+Testing Data Decryption
 
-curl -X POST http://127.0.0.1:5000/decrypt -H "Content-Type: application/json" -d "{\"data\":\"encrypted_string_here\"}"
-Replace encrypted_string_here with the actual encrypted string you received. The response should give you back the original string.
+To decrypt the data you received from the encryption endpoint, you need to send back all three parts (encrypted_data, encrypted_aes_key, and encrypted_iv) in your request:
 
+Decryption:
+Use the following curl command format for decryption:
+
+curl -X POST http://127.0.0.1:5000/decrypt -H "Content-Type: application/json" -d "{\"encrypted_data\":\"[Your_Encrypted_Data]\", \"encrypted_aes_key\":\"[Your_Encrypted_AES_Key]\", \"encrypted_iv\":\"[Your_Encrypted_IV]\"}"
+
+Replace [Your_Encrypted_Data], [Your_Encrypted_AES_Key], and [Your_Encrypted_IV] with the actual values you received from the encryption response. The server will use the RSA private key to decrypt the AES key and IV, and then use them to decrypt the data. The response should be the original unencrypted data.
 
 Encrypt File:
 
@@ -113,6 +121,22 @@ Storing Keys and IVs: Store the encryption keys and IVs in a secure database or 
 Retrieving Keys for Decryption: When decrypting a file, retrieve the corresponding key and IV from the secure storage using the file's unique identifier.
 
 Ensuring Security: Implement robust security measures to protect the key storage, including access controls, encryption in transit, and regular security audits.
+
+Deployment to Server VMs
+
+Preparing for Deployment
+
+-Ensure RSA key files are securely transferred to the server VM.
+
+-Set PRIVATE_KEY_PATH and PUBLIC_KEY_PATH environment variables on the server VM to point to the locations of the RSA key files.
+
+Server Deployment
+
+-Transfer the application code to the server VM.
+
+-Set up a Python environment and install dependencies.
+
+-Start the Flask application in a production-ready server like Gunicorn, uWSGI, or similar.
 
 
 Contributing
