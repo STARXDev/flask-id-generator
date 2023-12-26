@@ -142,7 +142,7 @@ def decrypt_file_route():
     decrypted_io = io.BytesIO(decrypted_file)
     decrypted_io.seek(0)
 
-    return send_file(decrypted_io, as_attachment=True, attachment_filename='decrypted_file')
+    return send_file(decrypted_io, as_attachment=True, download_name='decrypted_file')
 
 if __name__ == '__main__':
     app.run(debug=True)
