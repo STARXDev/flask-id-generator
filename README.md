@@ -102,6 +102,7 @@ file: The file to be encrypted.
 Usage: Use a tool like curl or Postman to POST the file to http://localhost:5000/encrypt-file. The response will be the encrypted file.
 
 **Decrypt File:**
+
 Endpoint: /decrypt-file
 Method: POST
 Form Data:
@@ -109,14 +110,14 @@ file: The encrypted file to be decrypted.
 
 Usage: Use a tool like curl or Postman to POST the encrypted file to http://localhost:5000/decrypt-file. The response will be the decrypted file.
 
-Secure Key and IV Management in Real-World Scenarios:
+**Secure Key and IV Management in Real-World Scenarios:**
 For production environments, it's essential to securely manage the encryption keys and IVs used for file encryption and decryption. This involves:
 
-Storing Keys and IVs: Store the encryption keys and IVs in a secure database or a managed service like AWS KMS or Azure Key Vault. Each key and IV should be associated with a unique identifier for the file or user.
-
+**Storing Keys and IVs:** Store the encryption keys and IVs in a secure database or a managed service like AWS KMS or Azure Key Vault. Each key and IV should be associated with a unique identifier for the file or user.
 Retrieving Keys for Decryption: When decrypting a file, retrieve the corresponding key and IV from the secure storage using the file's unique identifier.
 
-Ensuring Security: Implement robust security measures to protect the key storage, including access controls, encryption in transit, and regular security audits.
+**Ensuring Security:**
+Implement robust security measures to protect the key storage, including access controls, encryption in transit, and regular security audits.
 
 **Deployment to Server VMs**
 
