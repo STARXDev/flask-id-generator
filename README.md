@@ -165,6 +165,35 @@ Ran 3 tests in 0.324s
 OK
 If a test fails, the output will include details about which test failed and the nature of the failure. Reviewing these details can help in diagnosing and fixing issues in the application.
 
+# Flask ID Generator API
+
+## Key Updates
+
+### Error Handling Enhancements
+- Robust error handling mechanisms are now in place to ensure stability and reliability.
+- Encryption and decryption processes are wrapped in try-except blocks for improved error management.
+
+### Input Validation
+- Input validation checks are implemented to ensure that user inputs are within acceptable ranges and formats.
+- This enhances the security and usability of the API.
+
+### Rate Limiting Setup
+- The application is prepared for the integration of rate limiting using Flask-Limiter.
+- (Note: Redis integration for rate limiting will be finalized separately.)
+
+### File Encryption and Decryption
+- New endpoints for encrypting and decrypting files are added to the API.
+- These endpoints allow users to securely encrypt and decrypt file content using AES encryption.
+
+### General Code Refinement
+- Overall code quality has been enhanced for better readability and maintainability.
+- Consistency in coding standards is maintained throughout the application.
+
+## Next Steps
+- Finalizing the integration of rate limiting with Redis for efficient and scalable request management.
+- Further testing and optimization for production readiness.
+
+
 
 
 Contributing
